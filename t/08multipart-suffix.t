@@ -54,8 +54,8 @@ my $path = catdir( getcwd(), 't', 'data', 'multipart' );
         'tempname preserves .txt suffix when dir name has .'
     );
 
-    unlike(
-        $uploads->{upload2}{tempname}, qr/\\/,
+    like(
+        $uploads->{upload2}{tempname}, qr/[\\\/]\w+.txt$/,
         'tempname only gets extension from filename, not from a directory name'
     );
 }
