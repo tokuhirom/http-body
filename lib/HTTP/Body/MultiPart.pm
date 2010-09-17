@@ -9,6 +9,7 @@ use bytes;
 
 use IO::File;
 use File::Temp 0.14;
+use Path::Class qw(file);
 
 =head1 NAME
 
@@ -273,7 +274,8 @@ sub handler {
             $part->{filename} = $filename;
 
             if ( $filename ne "" ) {
-                my $suffix = $filename =~ /[^.]+(\.[^\\\/]+)$/ ? $1 : q{};
+                my $base_filename = file( $filename )->basename;
+                my $suffix = $base_filename =~ /[^.]+(\.[^\\\/]+)$/ ? $1 : q{};
 
                 my $fh = File::Temp->new( UNLINK => 0, DIR => $self->tmpdir, SUFFIX => $suffix );
 
